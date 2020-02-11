@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle, Image, ImageStyle } from 'react-native';
 
 interface Style {
   container: ViewStyle;
   itemContainer: ViewStyle;
   leftContainer: ViewStyle;
   rightContainer: ViewStyle;
+  image: ImageStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -30,13 +31,24 @@ const styles = StyleSheet.create<Style>({
     backgroundColor: 'blue',
     flex: 1, // 描画可能なエリアを目一杯使う
   },
+  image: {
+    width: 100,
+    height: 100,
+  },
 });
 
 const App: FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.itemContainer}>
-        <View style={styles.leftContainer} />
+        <View style={styles.leftContainer}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: 'https://picsum.photos/200/200',
+            }}
+          />
+        </View>
         <View style={styles.rightContainer} />
       </View>
     </View>
