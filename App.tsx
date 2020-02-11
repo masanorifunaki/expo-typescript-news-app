@@ -4,6 +4,8 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 interface Style {
   container: ViewStyle;
   itemContainer: ViewStyle;
+  leftContainer: ViewStyle;
+  rightContainer: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -18,13 +20,25 @@ const styles = StyleSheet.create<Style>({
     width: '100%',
     borderColor: 'gray',
     borderWidth: 1,
+    flexDirection: 'row',
+  },
+  leftContainer: {
+    backgroundColor: 'red',
+    width: 100,
+  },
+  rightContainer: {
+    backgroundColor: 'blue',
+    flex: 1, // 描画可能なエリアを目一杯使う
   },
 });
 
 const App: FC = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.itemContainer} />
+      <View style={styles.itemContainer}>
+        <View style={styles.leftContainer} />
+        <View style={styles.rightContainer} />
+      </View>
     </View>
   );
 };
