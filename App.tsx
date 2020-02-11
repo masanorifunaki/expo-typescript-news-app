@@ -6,6 +6,7 @@ import {
   Image,
   ImageStyle,
   Text,
+  TextStyle,
 } from 'react-native';
 
 interface Style {
@@ -14,6 +15,8 @@ interface Style {
   leftContainer: ViewStyle;
   rightContainer: ViewStyle;
   image: ImageStyle;
+  text: TextStyle;
+  subText: TextStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -36,10 +39,19 @@ const styles = StyleSheet.create<Style>({
   rightContainer: {
     flex: 1, // 描画可能なエリアを目一杯使う
     flexDirection: 'column',
+    padding: 10,
+    justifyContent: 'space-between',
   },
   image: {
     width: 100,
     height: 100,
+  },
+  text: {
+    fontSize: 16,
+  },
+  subText: {
+    fontSize: 8,
+    color: 'gray',
   },
 });
 
@@ -56,7 +68,7 @@ const App: FC = () => {
           />
         </View>
         <View style={styles.rightContainer}>
-          <Text numberOfLines={3}>
+          <Text numberOfLines={3} style={styles.text}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -65,7 +77,7 @@ const App: FC = () => {
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
             culpa qui officia deserunt mollit anim id est laborum.
           </Text>
-          <Text>ReactNews</Text>
+          <Text style={styles.subText}>ReactNews</Text>
         </View>
       </View>
     </View>
