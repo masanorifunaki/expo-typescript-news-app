@@ -9,14 +9,20 @@ import {
   TextStyle,
 } from 'react-native';
 
-interface Style {
+type Style = {
   itemContainer: ViewStyle;
   leftContainer: ViewStyle;
   rightContainer: ViewStyle;
   image: ImageStyle;
   text: TextStyle;
   subText: TextStyle;
-}
+};
+
+type ListItemProps = {
+  author: string;
+  imageUrl: string;
+  text: string;
+};
 
 const styles = StyleSheet.create<Style>({
   itemContainer: {
@@ -48,28 +54,24 @@ const styles = StyleSheet.create<Style>({
   },
 });
 
-const ListItem: FC = () => {
+const ListItem: FC<ListItemProps> = props => {
+  const { author, imageUrl, text } = props;
+
   return (
     <View style={styles.itemContainer}>
       <View style={styles.leftContainer}>
         <Image
           style={styles.image}
           source={{
-            uri: 'https://picsum.photos/200/200',
+            uri: imageUrl,
           }}
         />
       </View>
       <View style={styles.rightContainer}>
         <Text numberOfLines={3} style={styles.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          {text}
         </Text>
-        <Text style={styles.subText}>ReactNews</Text>
+        <Text style={styles.subText}>{author}</Text>
       </View>
     </View>
   );
