@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle, FlatList, SafeAreaView } from 'react-native';
 
 import ListItem from './components/ListItem';
 
@@ -21,21 +21,25 @@ const styles = StyleSheet.create<Style>({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
 
 const App: FC = () => {
-  const items = articles.map((article: Article) => {
-    const { id, author, urlToImage, title } = article;
-
-    return (
-      <ListItem key={id} author={author} imageUrl={urlToImage} text={title} />
-    );
-  });
-
-  return <View style={styles.container}>{items}</View>;
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={articles}
+        renderItem={({ item }: { item: Article }) => (
+          <ListItem
+            author={item.author}
+            imageUrl={item.urlToImage}
+            text={item.title}
+          />
+        )}
+        keyExtractor={(item: Article) => item.id.toString()}
+      />
+    </SafeAreaView>
+  );
 };
 
 export default App;
