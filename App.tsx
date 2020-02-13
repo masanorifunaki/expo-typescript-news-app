@@ -3,8 +3,18 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 
 import ListItem from './components/ListItem';
 
+import articles from './dummies/articles.json';
+
 type Style = {
   container: ViewStyle;
+};
+
+type Article = {
+  id: number;
+  author: string;
+  title: string;
+  urlToImage: string;
+  publishedAt: string;
 };
 
 const styles = StyleSheet.create<Style>({
@@ -17,16 +27,15 @@ const styles = StyleSheet.create<Style>({
 });
 
 const App: FC = () => {
-  return (
-    <View style={styles.container}>
-      <ListItem
-        author="SampleNews"
-        imageUrl="https://picsum.photos/200/200"
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad"
-      />
-    </View>
-  );
+  const items = articles.map((article: Article) => {
+    const { id, author, urlToImage, title } = article;
+
+    return (
+      <ListItem key={id} author={author} imageUrl={urlToImage} text={title} />
+    );
+  });
+
+  return <View style={styles.container}>{items}</View>;
 };
 
 export default App;
