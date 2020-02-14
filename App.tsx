@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { StyleSheet, ViewStyle, FlatList, SafeAreaView } from 'react-native';
+import axios from 'axios';
 
 import ListItem from './components/ListItem';
 
-import articles from './dummies/articles.json';
+const URL = 'https://www.reddit.com/r/newsokur/hot.json';
 
 type Style = {
   container: ViewStyle;
@@ -14,7 +15,7 @@ type Article = {
   author: string;
   title: string;
   urlToImage: string;
-  publishedAt: string;
+  publishedAt?: string;
 };
 
 const styles = StyleSheet.create<Style>({
@@ -25,6 +26,32 @@ const styles = StyleSheet.create<Style>({
 });
 
 const App: FC = () => {
+  const [articles, setArticles] = useState<Article[]>([]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const response = await axios.get(URL);
+        const { data } = response;
+        const fetchedArticles = data.data.children.map(a => {
+          const article: Article = {
+            id: a.data.id,
+            author: a.data.author_fullname,
+            title: a.data.title,
+            urlToImage: a.data.thumbnail,
+          };
+
+          return article;
+        });
+        setArticles(fetchedArticles);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetch();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
