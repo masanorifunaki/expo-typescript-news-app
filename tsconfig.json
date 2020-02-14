@@ -11,7 +11,7 @@
     "incremental": true,
     "esModuleInterop": true,
     "removeComments": true,
-    "types": ["node"],
+    "types": ["node", "react", "styled-components"],
     "typeRoots": ["node_modules/@types"]
   },
   "exclude": ["node_modules"]
