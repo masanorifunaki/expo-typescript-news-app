@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { StyleSheet, ViewStyle, FlatList, SafeAreaView } from 'react-native';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 import ListItem from '../components/ListItem';
 
@@ -16,6 +17,7 @@ type Article = {
   title: string;
   urlToImage: string;
   publishedAt?: string;
+  url: string;
 };
 
 const styles = StyleSheet.create<Style>({
@@ -27,6 +29,7 @@ const styles = StyleSheet.create<Style>({
 
 const HomeScreen: FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetch = async () => {
@@ -39,6 +42,7 @@ const HomeScreen: FC = () => {
             author: a.data.author_fullname,
             title: a.data.title,
             urlToImage: a.data.thumbnail,
+            url: a.data.url,
           };
 
           return article;
@@ -61,6 +65,12 @@ const HomeScreen: FC = () => {
             author={item.author}
             imageUrl={item.urlToImage}
             text={item.title}
+            onPress={() =>
+              navigation.navigate('Article', {
+                url: item.url,
+                title: item.title,
+              })
+            }
           />
         )}
         keyExtractor={(item: Article) => item.id.toString()}

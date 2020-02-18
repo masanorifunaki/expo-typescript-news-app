@@ -7,6 +7,7 @@ import {
   ImageStyle,
   Text,
   TextStyle,
+  TouchableOpacity,
 } from 'react-native';
 
 type Style = {
@@ -22,6 +23,7 @@ type ListItemProps = {
   author: string;
   imageUrl: string;
   text: string;
+  onPress: () => void;
 };
 
 const styles = StyleSheet.create<Style>({
@@ -55,10 +57,10 @@ const styles = StyleSheet.create<Style>({
 });
 
 const ListItem: FC<ListItemProps> = props => {
-  const { author, imageUrl, text } = props;
+  const { author, imageUrl, text, onPress } = props;
 
   return (
-    <View style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
       <View style={styles.leftContainer}>
         <Image
           style={styles.image}
@@ -73,7 +75,7 @@ const ListItem: FC<ListItemProps> = props => {
         </Text>
         <Text style={styles.subText}>{author}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
